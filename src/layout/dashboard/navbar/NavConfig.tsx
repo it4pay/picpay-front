@@ -10,7 +10,6 @@ const getIcon = (name: string) => (
 );
 
 const ICONS = {
-  banking: getIcon('ic_banking'),
   dashboard: getIcon('ic_dashboard'),
 };
 
@@ -20,7 +19,6 @@ const navConfig = [
     subheader: 'Gestão',
     items: [
       { title: 'App', path: PATH_DASHBOARD.gestao.app, icon: ICONS.dashboard },
-      { title: 'Pedidos', path: PATH_DASHBOARD.gestao.pedidos, icon: ICONS.banking },
     ],
   },
 ];
