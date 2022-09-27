@@ -101,7 +101,11 @@ export default function EmpresasApp() {
   };
 
   const handleEditRow = (id: string) => {
-    push('/dashboard/empresas/editar/' + id);
+    push('/dashboard/empresas/' + id + '/editar');
+  };
+
+  const handleShowRow = (id: string) => {
+    push('/dashboard/empresas/' + id);
   };
 
   const dataFiltered = applySortFilter({
@@ -114,7 +118,7 @@ export default function EmpresasApp() {
 
   const isNotFound = (!dataFiltered.length && !!filterName);
 
-  if(error) {
+  if (error) {
     return <div>Erro ao carregar dados</div>
   }
 
@@ -160,6 +164,7 @@ export default function EmpresasApp() {
                           row={row}
                           onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={() => handleEditRow(row.id)}
+                          onShowRow={() => handleShowRow(row.id)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{height: denseHeight}}/>
