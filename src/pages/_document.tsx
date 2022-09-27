@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
 
           <meta name="theme-color" content={index.palette.primary.main}/>
 
-          <link rel="manifest" href="/manifest.json" />
+          {/*<link rel="manifest" href="/manifest.json" />*/}
 
           <link rel="shortcut icon" href="/favicon.ico"/>
 
