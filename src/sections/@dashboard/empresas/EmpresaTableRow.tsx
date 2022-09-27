@@ -10,6 +10,7 @@ type Props = {
   row: any;
   onEditRow: VoidFunction;
   onDeleteRow: VoidFunction;
+  onShowRow: VoidFunction;
 };
 
 export default function EmpresaTableRow(
@@ -17,6 +18,7 @@ export default function EmpresaTableRow(
     row,
     onDeleteRow,
     onEditRow,
+    onShowRow,
   }: Props) {
 
   const {name, contactName, email} = row;
@@ -58,7 +60,7 @@ export default function EmpresaTableRow(
                 sx={{color: 'error.main'}}
               >
                 <Iconify icon={'eva:trash-2-outline'}/>
-                Delete
+                Excluir
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -67,7 +69,16 @@ export default function EmpresaTableRow(
                 }}
               >
                 <Iconify icon={'eva:edit-fill'}/>
-                Edit
+                Editar
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  onShowRow();
+                  handleCloseMenu();
+                }}
+              >
+                <Iconify icon={'eva:edit-fill'}/>
+                Ver
               </MenuItem>
             </>
           }
