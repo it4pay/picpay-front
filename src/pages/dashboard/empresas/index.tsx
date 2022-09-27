@@ -39,6 +39,8 @@ import EmpresaTableRow from '../../../sections/@dashboard/empresas/EmpresaTableR
 import axios from "axios";
 import HeaderBreadcrumbs from "../../../components/HeaderBreadcrumbs";
 import {PATH_DASHBOARD} from "../../../routes/paths";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import {useSnackbar} from "notistack";
 
 const TABLE_HEAD = [
   {id: 'name', label: 'Empresa', align: 'left'},
@@ -78,6 +80,12 @@ export default function EmpresasApp() {
 
   const [tableData, setTableData] = useState([]);
 
+  const {enqueueSnackbar} = useSnackbar();
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false, title: '', subTitle: '', onConfirm: () => {
+    }
+  });
+
   useEffect(() => {
     if (data) {
       setTableData(data)
@@ -92,13 +100,31 @@ export default function EmpresasApp() {
   };
 
   const handleDeleteRow = async (id: string) => {
+    setConfirmDialog(
+      {
+        isOpen: true,
+        title: 'Tem certeza que deseja excluir esta empresa?',
+        subTitle: "Você não poderá desfazer esta ação",
+        onConfirm: () => {
+          excluir(id)
+        }
+      }
+    )
+  };
+
+  const excluir = async (id: string) => {
     try {
       await axios.delete(`http://picpay.test/api/empresas/${id}`);
       await mutate()
+      enqueueSnackbar('Empresa excluída com sucesso', {variant: 'warning'});
     } catch (e) {
-      console.log(e)
+      enqueueSnackbar('Erro ao excluir empresa', {variant: 'error'});
     }
-  };
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false
+    })
+  }
 
   const handleEditRow = (id: string) => {
     push('/dashboard/empresas/' + id + '/editar');
@@ -203,6 +229,10 @@ export default function EmpresasApp() {
           </Box>
         </Card>
       </Container>
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </Page>
   );
 }
