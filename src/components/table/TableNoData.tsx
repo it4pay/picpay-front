@@ -15,7 +15,8 @@ export default function TableNoData({ isNotFound }: Props) {
       {isNotFound ? (
         <TableCell colSpan={12}>
           <EmptyContent
-            title="No Data"
+            title="Sem dados"
+            description={'Tente usar outro filtro ou limpe o filtro atual.'}
             sx={{
               '& span.MuiBox-root': { height: 160 },
             }}
