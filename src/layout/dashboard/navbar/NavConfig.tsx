@@ -19,6 +19,7 @@ const navConfig = [
     subheader: 'Gestão',
     items: [
       { title: 'App', path: PATH_DASHBOARD.gestao.app, icon: ICONS.dashboard },
+      { title: 'Empresas', path: PATH_DASHBOARD.gestao.empresas, icon: ICONS.dashboard },
     ],
   },
 ];
