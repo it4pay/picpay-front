@@ -12,7 +12,6 @@ export interface Props extends AvatarProps {
   color?: AvatarColor;
 }
 
-// eslint-disable-next-line react/display-name
 const Avatar = forwardRef<HTMLDivElement, Props>(
   ({ color = 'default', children, sx, ...other }, ref) => {
     const theme = useTheme();
