@@ -114,6 +114,7 @@ export default function EmpresasApp() {
   };
 
   const excluir = async (id: string) => {
+
     try {
       await axiosInstance.delete(`/empresas/${id}`);
       await mutate()
