@@ -41,6 +41,7 @@ import HeaderBreadcrumbs from "../../../components/HeaderBreadcrumbs";
 import {PATH_DASHBOARD} from "../../../routes/paths";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import {useSnackbar} from "notistack";
+import axiosInstance from "../../../utils/axios";
 
 const TABLE_HEAD = [
   {id: 'name', label: 'Empresa', align: 'left'},
@@ -114,7 +115,7 @@ export default function EmpresasApp() {
 
   const excluir = async (id: string) => {
     try {
-      await axios.delete(`http://picpay.test/api/empresas/${id}`);
+      await axiosInstance.delete(`/empresas/${id}`);
       await mutate()
       enqueueSnackbar('Empresa excluída com sucesso', {variant: 'warning'});
     } catch (e) {
@@ -159,7 +160,7 @@ export default function EmpresasApp() {
             {name: 'Empresas'}
           ]}
           action={
-            <NextLink href={'#'} passHref>
+            <NextLink href={'/dashboard/empresas/nova'} passHref>
               <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill"/>}>
                 Adicionar empresa
               </Button>
