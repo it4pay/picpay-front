@@ -26,7 +26,10 @@ interface Empresa {
 
 function EmpresaEdit(props: any) {
   const {id} = props;
-  const {data, error} = useSWR(`http://picpay.test/api/empresas/${id}`, url => axios.get(url).then(res => res.data));
+  const {
+    data,
+    error
+  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + `/empresas/${id}`, url => axios.get(url).then(res => res.data));
   const [empresa, setEmpresa] = useState<Empresa>();
   const {push} = useRouter();
   const {enqueueSnackbar} = useSnackbar();
@@ -64,7 +67,7 @@ function EmpresaEdit(props: any) {
 
   async function excluir(id: number) {
     try {
-      await axios.delete(`http://picpay.test/api/empresas/${id}`);
+      await axios.delete(process.env.NEXT_PUBLIC_HOST_BASEURL + `/empresas/${id}`);
       enqueueSnackbar('Empresa excluída com sucesso', {variant: 'warning'});
       push('/dashboard/empresas');
     } catch (error) {

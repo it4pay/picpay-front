@@ -77,7 +77,11 @@ export default function EmpresasApp() {
 
   const {push} = useRouter();
 
-  const {data, error, mutate} = useSWR('http://picpay.test/api/empresas', url => axios.get(url).then(res => res.data))
+  const {
+    data,
+    error,
+    mutate
+  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + '/empresas', url => axios.get(url).then(res => res.data))
 
   const [tableData, setTableData] = useState([]);
 

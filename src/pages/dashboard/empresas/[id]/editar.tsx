@@ -22,7 +22,10 @@ interface Empresa {
 
 function EmpresaEdit(props: any) {
   const {id} = props;
-  const {data, error} = useSWR(`http://picpay.test/api/empresas/${id}`, url => axios.get(url).then(res => res.data));
+  const {
+    data,
+    error
+  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + `/empresas/${id}`, url => axios.get(url).then(res => res.data));
   const [empresa, setEmpresa] = useState<Empresa>();
 
   useEffect(() => {
