@@ -34,8 +34,8 @@ import {
 
 import useTable, {getComparator, emptyRows} from '../../../hooks/useTable';
 
-import EmpresaTableToolbar from '../../../sections/@dashboard/empresas/EmpresaTableToolbar';
-import EmpresaTableRow from '../../../sections/@dashboard/empresas/EmpresaTableRow';
+import {EmpresaTableToolbar, EmpresaTableRow} from '../../../sections/@dashboard/empresas';
+
 import axios from "axios";
 import HeaderBreadcrumbs from "../../../components/HeaderBreadcrumbs";
 import {PATH_DASHBOARD} from "../../../routes/paths";
