@@ -10,6 +10,7 @@ interface Props extends BoxProps {
   disabledLink?: boolean;
 }
 
+// eslint-disable-next-line react/display-name
 const Logo = forwardRef<any, Props>(({ disabledLink = false, sx }, ref) => {
   const theme = useTheme();
 
