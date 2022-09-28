@@ -7,9 +7,9 @@ import {useRouter} from 'next/router';
 import {alpha} from '@mui/material/styles';
 import {Box, Divider, Typography, Stack, MenuItem} from '@mui/material';
 // routes
-import {PATH_AUTH} from '../../../routes/paths';
+// import {PATH_AUTH} from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
+// import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import MyAvatar from '../../../components/MyAvatar';
@@ -30,7 +30,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const router = useRouter();
 
-  const {user, logout} = useAuth();
+  // const {user, logout} = useAuth();
 
   const isMountedRef = useIsMountedRef();
 
@@ -48,8 +48,8 @@ export default function AccountPopover() {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      router.replace(PATH_AUTH.login);
+      // await logout();
+      // router.replace(PATH_AUTH.login);
 
       if (isMountedRef.current) {
         handleClose();
@@ -98,10 +98,10 @@ export default function AccountPopover() {
       >
         <Box sx={{my: 1.5, px: 2.5}}>
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
+            {/*{user?.displayName}*/}
           </Typography>
           <Typography variant="body2" sx={{color: 'text.secondary'}} noWrap>
-            {user?.email}
+            {/*{user?.email}*/}
           </Typography>
         </Box>
 
