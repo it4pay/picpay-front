@@ -4,7 +4,7 @@ import 'simplebar/src/simplebar.css';
 import * as React from 'react';
 import Head from 'next/head';
 import {AppProps} from 'next/app';
-import {ThemeProvider} from '@mui/material/styles';
+// import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {CacheProvider, EmotionCache} from '@emotion/react';
 import index from '../theme';
@@ -14,6 +14,8 @@ import {ReactElement, ReactNode} from "react";
 import {CollapseDrawerProvider} from '../contexts/CollapseDrawerContext';
 import ProgressBar from '../components/ProgressBar';
 import NotistackProvider from '../components/NotistackProvider';
+
+import ThemeProvider from '../theme';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -39,7 +41,7 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width"/>
       </Head>
       <CollapseDrawerProvider>
-        <ThemeProvider theme={index}>
+        <ThemeProvider>
           <NotistackProvider>
             <CssBaseline/>
             <ProgressBar/>

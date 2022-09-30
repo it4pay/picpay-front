@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Document, {Html, Head, Main, NextScript} from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
-import index from '../theme';
+import palette from '../theme/palette';
 import createEmotionCache from '../theme/createEmotionCache';
 
 export default class MyDocument extends Document {
@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
 
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
 
-          <meta name="theme-color" content={index.palette.primary.main}/>
+          <meta name="theme-color" content={palette.light.primary.main}/>
 
           {/*<link rel="manifest" href="/manifest.json" />*/}
 
