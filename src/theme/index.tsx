@@ -31,6 +31,7 @@ export default function ThemeProvider({children}: Props) {
 
   const theme = createTheme(themeOptions);
 
+  // @ts-ignore
   theme.components = componentsOverride(theme);
 
   return (
