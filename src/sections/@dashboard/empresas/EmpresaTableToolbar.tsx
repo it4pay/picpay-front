@@ -17,6 +17,7 @@ export default function EmpresaTableToolbar({ filterName, onFilterName }: Props)
       sx={{ py: 2.5, px: 3 }}
     >
       <TextField
+        sx={{ width: '638px' }}
         value={filterName}
         onChange={(event) => onFilterName(event.target.value)}
         placeholder="Pesquisar empresa..."
