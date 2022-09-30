@@ -19,7 +19,7 @@ type MainStyleProps = {
 const MainStyle = styled('main', {
   shouldForwardProp: (prop) => prop !== 'collapseClick',
 })<MainStyleProps>(({collapseClick, theme}) => ({
-  backgroundColor: '#f0f0f0',
+  backgroundColor: '#fff',
   minHeight: '100vh',
   flexGrow: 1,
   paddingTop: HEADER.MOBILE_HEIGHT + 24,
