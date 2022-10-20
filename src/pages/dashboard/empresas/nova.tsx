@@ -1,8 +1,6 @@
 import Layout from "../../../layout";
 import Page from "../../../components/Page";
-import {Container} from "@mui/material";
-import HeaderBreadcrumbs from "../../../components/HeaderBreadcrumbs";
-import {PATH_DASHBOARD} from "../../../routes/paths";
+import {Container, Typography} from "@mui/material";
 import {FormEmpresa} from "../../../sections/@dashboard/empresas";
 
 EmpresaCreate.getLayout = function getLayout(page: React.ReactElement) {
@@ -14,15 +12,10 @@ function EmpresaCreate() {
   return (
     <Page title="Nova Empresa: App">
       <Container maxWidth={'lg'}>
-        <HeaderBreadcrumbs
-          heading="Nova de empresa"
-          links={[
-            {name: 'Dashboard', href: PATH_DASHBOARD.gestao.app},
-            {name: 'Empresas', href: PATH_DASHBOARD.gestao.empresas},
-            {name: 'Nova empresa'},
-          ]}
-        />
-        <FormEmpresa title={'Formulário de Cadastro'} type={'create'}/>
+        <Typography variant="h5" mb={4} ml={3}>
+          Cadastro de nova empresa
+        </Typography>
+        <FormEmpresa type={'create'}/>
       </Container>
     </Page>
   );
