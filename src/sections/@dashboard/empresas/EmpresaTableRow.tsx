@@ -9,19 +9,15 @@ import {TableMoreMenu} from '../../../components/table';
 type Props = {
   row: any;
   onEditRow: VoidFunction;
-  onDeleteRow: VoidFunction;
-  onShowRow: VoidFunction;
 };
 
 export default function EmpresaTableRow(
   {
     row,
-    onDeleteRow,
     onEditRow,
-    onShowRow,
   }: Props) {
 
-  const {name, contactName, email} = row;
+  const {name, contact, email, cnpj} = row;
 
   const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);
 
@@ -41,9 +37,11 @@ export default function EmpresaTableRow(
         </Typography>
       </TableCell>
 
-      <TableCell>{(contactName)}</TableCell>
+      <TableCell>{(contact)}</TableCell>
 
       <TableCell>{(email)}</TableCell>
+
+      <TableCell>{(cnpj)}</TableCell>
 
       <TableCell align="right">
         <TableMoreMenu
@@ -54,31 +52,12 @@ export default function EmpresaTableRow(
             <>
               <MenuItem
                 onClick={() => {
-                  onDeleteRow();
-                  handleCloseMenu();
-                }}
-                sx={{color: 'error.main'}}
-              >
-                <Iconify icon={'eva:trash-2-outline'}/>
-                Excluir
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
                   onEditRow();
                   handleCloseMenu();
                 }}
               >
                 <Iconify icon={'eva:edit-fill'}/>
                 Editar
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  onShowRow();
-                  handleCloseMenu();
-                }}
-              >
-                <Iconify icon={'eva:edit-fill'}/>
-                Ver
               </MenuItem>
             </>
           }
