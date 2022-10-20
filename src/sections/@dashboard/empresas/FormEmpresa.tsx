@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form';
 import {FormProvider, RHFTextField} from "../../../components/hook-form";
 import {LoadingButton} from "@mui/lab";
 import {useSnackbar} from "notistack";
-import {Box, Paper, Stack, Typography} from "@mui/material";
+import {Box, Grid, Paper} from "@mui/material";
 import {useEffect} from "react";
 
 import {FormValuesProps, FormSchema, defaultValues} from "./form";
@@ -11,13 +11,11 @@ import axiosInstance from "../../../utils/axios";
 import {useRouter} from "next/router";
 
 interface Props {
-  empresa?: { id: number, name: string, contactName: string, email: string };
-  title: string;
+  company?: { id: number, name: string, contact: string, email: string };
   type: 'create' | 'edit';
 }
 
 export default function FormEmpresa(props: Props) {
-  const {title} = props;
   const {enqueueSnackbar} = useSnackbar();
 
   const {push} = useRouter();
@@ -35,28 +33,29 @@ export default function FormEmpresa(props: Props) {
   } = methods;
 
   useEffect(() => {
-    if (props.empresa) {
+    if (props.company) {
       reset({
-        name: props.empresa.name,
-        contactName: props.empresa.contactName,
-        email: props.empresa.email
+        name: props.company.name,
+        contact: props.company.contact,
+        email: props.company.email,
+        cnpj: props.company.email
       });
     }
-  }, [reset, props.empresa])
+  }, [reset, props.company])
 
   const onSubmit = async (data: FormValuesProps) => {
 
     try {
       if (props.type === 'edit') {
-        if (props.empresa) {
-          await axiosInstance.put(`/empresas/${props.empresa.id}`, data);
+        if (props.company) {
+          await axiosInstance.put(`/companies/${props.company.id}`, data);
           enqueueSnackbar('Empresa atualizada com sucesso', {variant: 'success'});
           push('/dashboard/empresas');
           return;
         }
       }
 
-      await axiosInstance.post('/empresas', data);
+      await axiosInstance.post('/companies', data);
       enqueueSnackbar('Empresa criada com sucesso', {variant: 'success'});
       push('/dashboard/empresas');
 
@@ -72,31 +71,40 @@ export default function FormEmpresa(props: Props) {
 
   return (
     <>
-      <Box component={Paper} maxWidth={'450px'} p={3} variant="outlined">
-        <Typography variant={'h3'}>{title}</Typography>
+      <Box component={Paper} maxWidth={'712px'} p={2.5} variant="outlined">
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Box>
-            <Stack spacing={3}>
-              <RHFTextField name={'name'} label={'Nome da Empresa'}/>
 
-              <RHFTextField name={'contactName'} label={'Contato'}/>
+            <Grid container rowSpacing={3} columnSpacing={2}
+            >
+              <Grid item xs={12} md={6}>
+                <RHFTextField name={'name'} label={'Empresa'} variant={'outlined'}/>
+              </Grid>
 
-              <RHFTextField name={'email'} label={'Email'}/>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name={'contact'} label={'Nome do contato'} variant={'outlined'}/>
+              </Grid>
 
-              <Box>
+              <Grid item xs={12} md={6}>
+                <RHFTextField name={'email'} label={'E-mail'} variant={'outlined'}/>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <RHFTextField name={'cnpj'} label={'CNPJ'} variant={'outlined'}/>
+              </Grid>
+
+              <Grid item xs={12} justifyContent={'flex-end'} display={'flex'}>
                 <LoadingButton
-                  color="info"
-                  size="large"
+                  color="primary"
                   type="submit"
                   variant="contained"
-                  fullWidth
-                  sx={{marginBottom: '20px'}}
+                  sx={{margin: '10px 0'}}
                   loading={isSubmitting}
                 >
                   {props.type === 'create' ? 'Cadastrar' : 'Salvar'}
                 </LoadingButton>
-              </Box>
-            </Stack>
+              </Grid>
+            </Grid>
           </Box>
 
         </FormProvider>
