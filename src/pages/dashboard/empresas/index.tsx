@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   Table,
-  Button,
   Switch,
   TableBody,
   Container,
@@ -15,15 +14,6 @@ import {
 import Layout from '../../../layout';
 // components
 import Page from '../../../components/Page';
-
-// ----------------------------------------------------------------------
-
-import {useState, useEffect} from 'react';
-import useSWR from 'swr'
-// next
-import NextLink from 'next/link';
-import {useRouter} from 'next/router';
-import Iconify from '../../../components/Iconify';
 import Scrollbar from '../../../components/Scrollbar';
 import {
   TableNoData,
@@ -32,21 +22,25 @@ import {
   TableHeadCustom,
 } from '../../../components/table';
 
-import useTable, {getComparator, emptyRows} from '../../../hooks/useTable';
+// ----------------------------------------------------------------------
 
+import {useState, useEffect} from 'react';
+import useSWR from 'swr'
+// next
+import {useRouter} from 'next/router';
+// hooks
+import useTable, {getComparator, emptyRows} from '../../../hooks/useTable';
+// section
 import {EmpresaTableToolbar, EmpresaTableRow} from '../../../sections/@dashboard/empresas';
 
 import axios from "axios";
-import HeaderBreadcrumbs from "../../../components/HeaderBreadcrumbs";
-import {PATH_DASHBOARD} from "../../../routes/paths";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import {useSnackbar} from "notistack";
-import axiosInstance from "../../../utils/axios";
 
 const TABLE_HEAD = [
-  {id: 'name', label: 'Empresa', align: 'left'},
-  {id: 'contactName', label: 'Nome do contato', align: 'left'},
+  {id: 'name', label: 'Nome da Empresa', align: 'left'},
+  {id: 'contact', label: 'Nome do contato', align: 'left'},
   {id: 'email', label: 'Email', align: 'left'},
+  {id: 'cnpj', label: 'CNPJ', align: 'left'},
   {id: ''},
 ];
 
@@ -80,12 +74,10 @@ export default function EmpresasApp() {
   const {
     data,
     error,
-    mutate
-  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + '/empresas', url => axios.get(url).then(res => res.data))
+  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + '/companies', url => axios.get(url).then(res => res.data))
 
   const [tableData, setTableData] = useState([]);
 
-  const {enqueueSnackbar} = useSnackbar();
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false, title: '', subTitle: '', onConfirm: () => {
     }
@@ -104,40 +96,8 @@ export default function EmpresasApp() {
     setPage(0);
   };
 
-  const handleDeleteRow = async (id: string) => {
-    setConfirmDialog(
-      {
-        isOpen: true,
-        title: 'Tem certeza que deseja excluir esta empresa?',
-        subTitle: "Você não poderá desfazer esta ação",
-        onConfirm: () => {
-          excluir(id)
-        }
-      }
-    )
-  };
-
-  const excluir = async (id: string) => {
-
-    try {
-      await axiosInstance.delete(`/empresas/${id}`);
-      await mutate()
-      enqueueSnackbar('Empresa excluída com sucesso', {variant: 'warning'});
-    } catch (e) {
-      enqueueSnackbar('Erro ao excluir empresa', {variant: 'error'});
-    }
-    setConfirmDialog({
-      ...confirmDialog,
-      isOpen: false
-    })
-  }
-
   const handleEditRow = (id: string) => {
     push('/dashboard/empresas/' + id + '/editar');
-  };
-
-  const handleShowRow = (id: string) => {
-    push('/dashboard/empresas/' + id);
   };
 
   const dataFiltered = applySortFilter({
@@ -158,20 +118,6 @@ export default function EmpresasApp() {
   return (
     <Page title="Dashboard">
       <Container maxWidth={'xl'}>
-        <HeaderBreadcrumbs
-          heading="Lista de empresas"
-          links={[
-            {name: 'Dashboard', href: PATH_DASHBOARD.gestao.app},
-            {name: 'Empresas'}
-          ]}
-          action={
-            <NextLink href={'/dashboard/empresas/nova'} passHref>
-              <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill"/>}>
-                Adicionar empresa
-              </Button>
-            </NextLink>
-          }
-        />
         <Card>
           <EmpresaTableToolbar filterName={filterName} onFilterName={handleFilterName}/>
 
@@ -194,9 +140,7 @@ export default function EmpresasApp() {
                         <EmpresaTableRow
                           key={row.id}
                           row={row}
-                          onDeleteRow={() => handleDeleteRow(row.id)}
                           onEditRow={() => handleEditRow(row.id)}
-                          onShowRow={() => handleShowRow(row.id)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{height: denseHeight}}/>
