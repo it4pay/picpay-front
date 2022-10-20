@@ -1,8 +1,6 @@
 import Layout from "../../../../layout";
 import Page from "../../../../components/Page";
-import {Container} from "@mui/material";
-import HeaderBreadcrumbs from "../../../../components/HeaderBreadcrumbs";
-import {PATH_DASHBOARD} from "../../../../routes/paths";
+import {Container, Typography} from "@mui/material";
 import {FormEmpresa} from "../../../../sections/@dashboard/empresas";
 import useSWR from "swr";
 import axios from "axios";
@@ -13,11 +11,12 @@ EmpresaEdit.getLayout = function getLayout(page: React.ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-interface Empresa {
-  id: number;
+interface Company {
+  id: string;
   name: string;
-  contactName: string;
+  contact: string;
   email: string;
+  cnpj: string;
 }
 
 function EmpresaEdit(props: any) {
@@ -25,12 +24,12 @@ function EmpresaEdit(props: any) {
   const {
     data,
     error
-  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + `/empresas/${id}`, url => axios.get(url).then(res => res.data));
-  const [empresa, setEmpresa] = useState<Empresa>();
+  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + `/companies/${id}`, url => axios.get(url).then(res => res.data));
+  const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
     if (data) {
-      setEmpresa(data);
+      setCompany(data);
     }
   }, [data]);
 
@@ -39,17 +38,12 @@ function EmpresaEdit(props: any) {
   }
 
   return (
-    <Page title="Editar Empresa: App">
+    <Page title="Editar Empresa">
       <Container maxWidth={'lg'}>
-        <HeaderBreadcrumbs
-          heading="Edição de empresa"
-          links={[
-            {name: 'Dashboard', href: PATH_DASHBOARD.gestao.app},
-            {name: 'Empresas', href: PATH_DASHBOARD.gestao.empresas},
-            {name: `${empresa?.name}`},
-          ]}
-        />
-        <FormEmpresa empresa={empresa} title={'Formulário de edição'} type={'edit'}/>
+        <Typography variant="h5" mb={4} ml={3}>
+          Edição de empresa
+        </Typography>
+        <FormEmpresa company={company} type={'edit'}/>
       </Container>
     </Page>
   );

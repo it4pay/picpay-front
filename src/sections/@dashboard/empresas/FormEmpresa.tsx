@@ -11,7 +11,7 @@ import axiosInstance from "../../../utils/axios";
 import {useRouter} from "next/router";
 
 interface Props {
-  company?: { id: number, name: string, contact: string, email: string };
+  company?: { id: string, name: string, contact: string, email: string, cnpj: string };
   type: 'create' | 'edit';
 }
 
@@ -38,7 +38,7 @@ export default function FormEmpresa(props: Props) {
         name: props.company.name,
         contact: props.company.contact,
         email: props.company.email,
-        cnpj: props.company.email
+        cnpj: props.company.cnpj
       });
     }
   }, [reset, props.company])
