@@ -20,6 +20,7 @@ const navConfig = [
     items: [
       { title: 'App', path: PATH_DASHBOARD.gestao.app, icon: ICONS.dashboard },
       { title: 'Empresas', path: PATH_DASHBOARD.gestao.empresas, icon: ICONS.dashboard },
+      { title: 'Pedidos', path: PATH_DASHBOARD.gestao.pedidos, icon: ICONS.dashboard },
     ],
   },
 ];
