@@ -37,10 +37,9 @@ import axios from "axios";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
 const TABLE_HEAD = [
-  {id: 'name', label: 'Nome da Empresa', align: 'left'},
-  {id: 'contact', label: 'Nome do contato', align: 'left'},
-  {id: 'email', label: 'Email', align: 'left'},
-  {id: 'cnpj', label: 'CNPJ', align: 'left'},
+  {id: 'name', label: 'Empresa', align: 'left', minWidth: '246px'},
+  {id: 'contact', label: 'Contato', align: 'left', minWidth: '265px'},
+  {id: 'email', label: 'E-mail', align: 'left'},
   {id: ''},
 ];
 
@@ -71,23 +70,30 @@ export default function EmpresasApp() {
 
   const {push} = useRouter();
 
-  const {
-    data,
-    error,
-  } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + '/companies', url => axios.get(url).then(res => res.data))
+  // const {
+  //   data,
+  //   error,
+  // } = useSWR(process.env.NEXT_PUBLIC_HOST_BASEURL + '/companies', url => axios.get(url).then(res => res.data))
 
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState([
+    {
+      id: 1,
+      name: 'Code App',
+      contact: 'Samuel Gomes',
+      email: 'samuelgomes@codeapp.com',
+    }
+  ]);
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false, title: '', subTitle: '', onConfirm: () => {
     }
   });
 
-  useEffect(() => {
-    if (data) {
-      setTableData(data)
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (data) {
+  //     setTableData(data)
+  //   }
+  // }, [data])
 
   const [filterName, setFilterName] = useState('');
 
@@ -96,8 +102,9 @@ export default function EmpresasApp() {
     setPage(0);
   };
 
-  const handleEditRow = (id: string) => {
-    push('/dashboard/empresas/' + id + '/editar');
+  const handleDetailsCompanyRow = (id: string) => {
+    // push('/dashboard/empresas/' + id + '/editar');
+    alert('Editar empresa ' + id)
   };
 
   const dataFiltered = applySortFilter({
@@ -110,9 +117,9 @@ export default function EmpresasApp() {
 
   const isNotFound = (!dataFiltered.length && !!filterName);
 
-  if (error) {
-    return <div>Erro ao carregar dados</div>
-  }
+  // if (error) {
+  //   return <div>Erro ao carregar dados</div>
+  // }
 
 
   return (
@@ -140,7 +147,7 @@ export default function EmpresasApp() {
                         <EmpresaTableRow
                           key={row.id}
                           row={row}
-                          onEditRow={() => handleEditRow(row.id)}
+                          onEditRow={() => handleDetailsCompanyRow(row.id)}
                         />
                       ) : (
                         !isNotFound && <TableSkeleton key={index} sx={{height: denseHeight}}/>
