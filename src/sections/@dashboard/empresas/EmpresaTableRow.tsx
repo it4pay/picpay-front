@@ -17,7 +17,7 @@ export default function EmpresaTableRow(
     onEditRow,
   }: Props) {
 
-  const {name, contact, email, cnpj} = row;
+  const {name, contact, email} = row;
 
   const [openMenu, setOpenMenuActions] = useState<HTMLElement | null>(null);
 
@@ -41,8 +41,6 @@ export default function EmpresaTableRow(
 
       <TableCell>{(email)}</TableCell>
 
-      <TableCell>{(cnpj)}</TableCell>
-
       <TableCell align="right">
         <TableMoreMenu
           open={openMenu}
@@ -57,7 +55,7 @@ export default function EmpresaTableRow(
                 }}
               >
                 <Iconify icon={'eva:edit-fill'}/>
-                Editar
+                Ver detalhes
               </MenuItem>
             </>
           }
