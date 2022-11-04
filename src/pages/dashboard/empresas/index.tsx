@@ -31,7 +31,7 @@ import {useRouter} from 'next/router';
 // hooks
 import useTable, {getComparator, emptyRows} from '../../../hooks/useTable';
 // section
-import {EmpresaTableToolbar, EmpresaTableRow} from '../../../sections/@dashboard/empresas';
+import {EmpresaTableToolbar, EmpresaTableRow} from '../../../sections/@dashboard/gruposEmpresas';
 
 import axios from "axios";
 import ConfirmDialog from "../../../components/ConfirmDialog";
