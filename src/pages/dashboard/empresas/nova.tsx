@@ -1,7 +1,7 @@
 import Layout from "../../../layout";
 import Page from "../../../components/Page";
 import {Container, Typography} from "@mui/material";
-import {FormNovoGrupo} from "../../../sections/@dashboard/gruposEmpresas";
+import {FormNovoGrupo, FormNovaEmpresa} from "../../../sections/@dashboard/gruposEmpresas";
 
 EmpresaCreate.getLayout = function getLayout(page: React.ReactElement) {
   return <Layout>{page}</Layout>;
@@ -16,6 +16,7 @@ function EmpresaCreate() {
           Cadastro de nova empresa
         </Typography>
         <FormNovoGrupo type={'create'}/>
+        <FormNovaEmpresa type={'create'}/>
       </Container>
     </Page>
   );
