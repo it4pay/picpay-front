@@ -1,7 +1,7 @@
 import Layout from "../../../layout";
 import Page from "../../../components/Page";
 import {Container, Typography} from "@mui/material";
-import {FormEmpresa} from "../../../sections/@dashboard/empresas";
+import {FormNovoGrupo} from "../../../sections/@dashboard/gruposEmpresas";
 
 EmpresaCreate.getLayout = function getLayout(page: React.ReactElement) {
   return <Layout>{page}</Layout>;
@@ -11,11 +11,11 @@ function EmpresaCreate() {
 
   return (
     <Page title="Nova Empresa: App">
-      <Container maxWidth={'lg'}>
+      <Container maxWidth={'xl'}>
         <Typography variant="h5" mb={4} ml={3}>
           Cadastro de nova empresa
         </Typography>
-        <FormEmpresa type={'create'}/>
+        <FormNovoGrupo type={'create'}/>
       </Container>
     </Page>
   );
